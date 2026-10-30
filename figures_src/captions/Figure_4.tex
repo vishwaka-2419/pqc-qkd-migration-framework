@@ -1,0 +1,30 @@
+Key-pool dynamics and the reserve-time signal under link-specific QKD
+refill outages during the 24-hour reference run. (a)~Level of the paired-KME
+key pool (capacity $B_{\max} = 5.12$~Mbit) of three overlay routes versus
+time of day: dci-0 (solid), core-0 (dashed) and the unaffected dci-1
+(dotted); every pool starts at 60\% of $B_{\max}$ and is full from 00:10,
+and the three traces coincide at $B_{\max}$ outside the outages, so that only
+one line is visible at 5.12~Mbit there. The shaded windows are the refill
+outages injected into the scenario, 02:00--05:00 for core-0 and 09:00--15:00
+for dci-0; during an outage the pool is drained only by the key demand of its
+services (341~bit/s on the DCI routes, 102~bit/s on core-0). The thin grey
+dotted horizontal line is the protected reserve $\beta B_{\max} = 0.256$~Mbit
+($\beta = 0.05$), which Eq.~\eqref{eq:reserve} treats as unusable.
+(b)~Predicted reserve time of the same three pools from
+Eq.~\eqref{eq:reserve}, i.e.\ the time for which the usable pool would
+sustain the planned key demand of the route, with the gold-SLA demotion
+margin $T_{\min} = 2$~h (grey dashed horizontal line) and the re-entry
+threshold $\kappa T_{\min} = 3$~h ($\kappa = 1.5$, grey dotted horizontal
+line); both reference lines are labelled in the right margin. The dci-0
+signal falls below the re-entry threshold at 10:00 and reaches the demotion
+margin at 11:00, when the policy proactively demotes the 188 sessions of its
+three gold services to non-QKD modes (OTN to PQC only, IPsec and MACsec to
+PQ/T hybrid) at a pool level of 2.701~Mbit (52.8\% of $B_{\max}$); the
+demoted services draw no further keys, so the level and the signal stay flat
+(2.701~Mbit, 1.99~h) until the refill resumes at 15:00, after which the
+services re-enter their QKD modes within five minutes, once the signal
+exceeds 3~h. The shorter core-0 outage leaves its reserve above 10~h, far
+from the margin, and triggers no demotion; dci-1 holds its full-pool reserve
+of 3.96~h from 00:10 onwards. Both panels share the time axis. Planning-model
+outputs of the seeded synthetic scenario (topology seed~7, simulation
+seed~11); no carrier data are used.

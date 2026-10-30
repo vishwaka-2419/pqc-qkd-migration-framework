@@ -1,0 +1,20 @@
+Crypto-agile protection planning for carrier transport services with a
+selective QKD overlay: the decision pipeline of the framework (three boxes,
+read top to bottom along the arrows) and the headline outputs of the seeded
+synthetic reference scenario (bottom box). The per-service context (secrecy
+lifetime, cryptographic capability set, SLA class, route and threat exposure)
+is passed to the crypto-agile policy engine (tinted box), which applies the
+Mosca migration margin, a reserve-time forecast of the paired key-management
+pool and fail-closed downgrade rules; its output is the admissible protection
+for each service: a post-quantum/traditional (PQ/T) hybrid baseline wherever
+the service's capability set allows it, with QKD-assisted keying only for
+high-assurance services on qualified routes. The bottom box lists the results
+of the reference scenario (topology seed~7, simulation seed~11, 24-hour
+simulation): 6 of the 35 links receive the QKD overlay, which requires 13
+physical QKD hops and 7 trusted sites; 94.2\% of the QKD-preferred rekeys are
+QKD-backed, the remainder being rekeyed in a non-QKD mode after proactive
+reserve-time demotion during the dci-0 refill outage (09:00--15:00; the
+shorter core-0 outage triggers none); and the five-year assurance premium of
+the selective overlay over the PQC-only migration baseline is 2.84\,MEUR in
+net present value. All values are planning-model outputs of the reference
+implementation; no carrier measurements are used.

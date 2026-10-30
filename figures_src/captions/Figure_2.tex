@@ -1,0 +1,28 @@
+Attenuation-envelope secret-key rate and route qualification of the QKD
+planner. (a)~Planning-envelope secret-key rate of a single fibre span versus
+span length (solid line; 2~Mbit/s at zero loss, 0.20~dB/km fibre attenuation
+plus 3~dB system loss, logarithmic axis), with the planning floor
+$R_{\min} = 100$~bit/s (dotted horizontal line, reached at 200~km) and the
+designed hop limit of 80~km (dashed vertical line). Markers are the qualified
+routes of the reference scenario at their per-hop length and per-hop envelope
+rate: circles, the two DCI direct spans (dci-1, 37.5~km, 178~kbit/s; dci-0,
+39.9~km, 160~kbit/s; the two circles overlap because these spans differ by
+only 2.4~km); squares, the two high-assurance metro direct spans
+(metro0-2, 42.6~km, 141~kbit/s; metro2-2, 53.2~km, 87~kbit/s); triangles, the
+two qualified trusted-node core routes plotted per hop (core-0, 5 hops of
+66~km, 48~kbit/s per hop; core-3, 4 hops of 75~km, 32~kbit/s per hop); the
+thin grey leader lines tie the two triangles to their labels (route name:
+number of hops $\times$ hop length). (b)~Qualification outcome of the six
+long-haul core routes, sorted by route length: solid dark bars are the two
+qualified routes, hatched grey bars the four rejected routes; the text next
+to each bar gives the outcome (qualified, or the constraint that rejected the
+route: no qualified optical path, fewer approved trusted sites than the route
+needs, or more trusted nodes than the policy limit of~4) and, where an
+optical path exists, the planned number of hops. Each rejected route is thus
+labelled with the constraint that rejected it, so that a qualification
+failure is not mistaken for a measured secret-key rate: none of the four
+rejected routes reaches the planner's final per-hop rate check, hence no
+per-hop rate is reported for them, and no secret-key rate is measured
+anywhere in the model. Together the six qualified routes use 13 physical QKD
+hops and 7 trusted sites. All values are planning-model outputs of the seeded
+synthetic scenario (topology seed~7); no carrier data are used.

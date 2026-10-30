@@ -1,0 +1,26 @@
+Service-level protection-mode mix of the 60 services of the reference
+scenario before and after the selective QKD overlay. One row per mode that is
+assigned to at least one service; in each row the upper, hatched light bar is
+Phase~2 (PQC migration baseline, before any QKD overlay) and the lower, solid
+dark bar is Phase~3 (after the selective QKD overlay has been planned and its
+routes qualified, Figure~\ref{fig:qkd}). The number at the end of a bar is
+the number of services in that mode, and a ``0'' next to the axis marks a
+mode that no service uses in that phase. Modes are assigned per service, not
+per physical link, by the policy engine at planning time (a qualified route
+with an unconstrained key reserve is assumed; run-time reserve-based demotion
+is not shown here). In the baseline, 50 services run PQ/T hybrid, 8 PQC only
+and 2 traditional only, and no service uses QKD. The overlay changes the mode
+of 12 services (20\% of the inventory), all of them high-assurance services
+on the six qualified overlay links (core-0, core-3, metro0-2, metro2-2, dci-0
+and dci-1): 8 IKEv2/IPsec and MACsec services move from PQ/T hybrid to
+PQ/T + QKD, and the 4 OTN services on these links, whose encryptor profile
+has no PQ/T hybrid capability, move from PQC only to QKD-assisted; the 4
+services that remain in PQC only are the OTN services of the four core routes
+that failed qualification (core-1, core-2, core-4 and core-5), and 42
+services remain in PQ/T hybrid. The two standard-assurance services on
+overlay links keep PQ/T hybrid because the QKD modes score lower for
+standard-assurance services, and the 2 traditional-only services (the legacy
+access endpoints acc-2 and acc-9, which have no PQC capability) are
+unchanged. QKD therefore appears only after route qualification and only for
+high-assurance services. Planning-model outputs of the seeded synthetic
+scenario (topology seed 7, simulation seed 11); no carrier data are used.

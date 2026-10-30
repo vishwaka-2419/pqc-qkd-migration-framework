@@ -1,0 +1,18 @@
+Per-session sampled rekey-control latency by protocol adapter in the 24-hour
+reference run, shown as empirical cumulative distributions on a logarithmic
+latency axis: (a)~IKEv2/IPsec, 35 services, $n = 149\,760$ samples;
+(b)~MACsec, 17 services, $n = 432\,000$ samples; (c)~OTN, 8 services,
+$n = 161\,280$ samples (adapter and sample count in the legend of each
+panel). The dotted vertical lines are the latency budgets configured for the
+services of each adapter (IKEv2/IPsec: 8, 14, 22 and 50~ms for 2, 15, 6 and
+12 services; MACsec: 7 and 10~ms for 2 and 15 services; OTN: 8 and 18~ms for
+2 and 6 services), each labelled with its value along the line. Medians and
+99th percentiles are 1.56 and 8.83~ms for IKEv2/IPsec (the plateau at a
+cumulative share of 0.54, between 1.9 and 5.6~ms, separates the access,
+metro and DCI tunnels, 0.34--1.88~ms with budgets of 50, 14 and 8~ms, from
+the six core tunnels, 5.6--9.1~ms with a budget of 22~ms), 1.34 and 1.86~ms
+for MACsec, and 3.73 and 4.00~ms for OTN; no sample exceeds the budget of
+its own service and the simulator records no deadline miss. The curves are
+analytical, seeded adapter models of the rekey-control path, not measured
+carrier p99 values. Planning-model outputs of the seeded synthetic scenario
+(topology seed~7, simulation seed~11); no carrier data are used.

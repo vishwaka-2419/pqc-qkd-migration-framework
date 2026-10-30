@@ -1,0 +1,28 @@
+Joint sensitivity of the selective QKD overlay to the designed hop limit
+(rows: 50--100~km in 10~km steps and 120~km) and to the trusted-node policy
+limit (columns: 0--6 and 8, the largest number of intermediate trusted nodes
+a route may use). (a)~Physical QKD hops of the qualified overlay; the
+bracketed number in each cell is the number of overlaid logical links.
+(b)~Five-year assurance premium of the same overlay (NPV, MEUR). Cells are
+shaded by the hop count in (a) and by the premium in (b) (one hue,
+light = small, dark = large; colour bars), white separators mark the cell
+boundaries, and the cell outlined in black is the reference configuration
+(80~km, limit~4: 13 physical hops over 6 links, 2.8~MEUR premium). A route is
+planned with the smallest number of equal hops not longer than the hop limit,
+with one trusted node at every junction, and qualifies only if that number of
+trusted nodes is within the policy limit (a core route is assumed to obtain
+every approved trusted site it needs, except core-2 and core-5, which remain
+one site short at every hop limit, and core-4, which has no qualified optical
+path, so at most seven links, the four direct spans and the core routes
+core-0, core-1 and core-3, ever qualify; the per-hop rate floor $R_{\min}$
+never binds for hops of up to 120~km). Cells in which the hop count equals
+the link count therefore contain direct spans only (3--4 hops, 3--4 links,
+0.6--0.8~MEUR): no trusted-node route qualifies with a policy limit of 0 or 1,
+and at a 50~km hop limit none qualifies below a limit of~6. Relaxing either
+constraint admits the long-haul core routes step by step, e.g.\ along the
+reference row (80~km) a policy limit of 3, 4 and 5 gives 8, 13 and 19 hops
+(1.7, 2.8 and 4.2~MEUR); the full seven-link overlay needs 24 hops at a 60~km
+hop limit but only 14 hops at 120~km (5.4 versus 3.0~MEUR), and the largest
+footprint, 26 hops over 6 links (5.9~MEUR), arises at 50~km with a limit
+of~8. All values are planning-model outputs of the seeded synthetic scenario
+(topology seed~7, simulation seed~11); no carrier data are used.

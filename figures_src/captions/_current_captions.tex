@@ -1,0 +1,60 @@
+%% ===== Figure_1.png  label=fig:arch
+Reference architecture. Decisions are made per service.
+ETSI-014-inspired paired-KME behaviour is isolated from protocol-specific
+adapters. MACsec and OTN adapters are generic analytical abstractions, not
+claims of standardised PQC/QKD bindings. Bidirectional arrows denote
+policy/key requests downward and telemetry/status upward. \rev{No carrier data
+are used anywhere in the evaluation.}
+
+%% ===== Figure_2.png  label=fig:qkd
+Attenuation-envelope rate and route qualification. (a) Single-span
+envelope with the qualified direct spans and the per-hop operating points of
+the two qualified trusted-node core routes. (b) Qualification outcome of the
+six long-haul routes; rejected routes are listed with the constraint that
+rejected them so that qualification failure is not mistaken for a measured
+secret-key rate.
+
+%% ===== Figure_3.png  label=fig:mix
+Mode assignments per service rather than per physical link. QKD
+appears only after route qualification and only for high-assurance services.
+
+%% ===== Figure_4.png  label=fig:pool
+(a) Pool trajectories for the two outage-affected routes and one
+unaffected DCI route; shading is link-specific. (b) \rev{The predicted
+reserve-time signal of Eq.~\eqref{eq:reserve} with the gold demotion margin and
+the re-entry threshold.} The DCI outage triggers
+reserve-time demotion; the shorter core outage does not.
+
+%% ===== Figure_5.png  label=fig:latency
+Per-session sampled rekey-control latency by protocol adapter
+\rev{with the configured latency budgets (dotted)}. The
+curves are analytical and seeded; they are not measured carrier p99 values.
+
+%% ===== Figure_6.png  label=fig:tco
+Illustrative cost model with physical-hop accounting. (a) \rev{Shared
+versus incremental five-year NPV (Table~\ref{tab:costsplit}).} (b) Capex
+sensitivity: common orchestration is charged to both strategies and QKD pairs
+are counted per physical hop; the shaded area is the incremental assurance
+premium. (c) \rev{Premium versus discount rate for three horizons.}
+
+%% ===== Figure_7.png  label=fig:oat
+\rev{One-at-a-time sensitivity of the physical QKD footprint (top), the
+QKD-backed share of QKD-preferred rekeys (middle), and the minimum pool level
+during the 24-hour run (bottom) to the six route-qualification and reserve
+parameters. The reference value is outlined. Cliffs in the reserve parameters
+correspond to violations of the dimensioning condition, Eq.~\eqref{eq:dimensioning}.}
+
+%% ===== Figure_8.png  label=fig:grid
+\rev{Joint sensitivity to the designed hop limit and the trusted-node
+policy limit: (a) physical QKD hops with the number of overlaid logical links
+in brackets; (b) five-year assurance premium. The reference configuration is
+outlined.}
+
+%% ===== Figure_9.png  label=fig:baselines
+\rev{Comparison of the proposed policy with five alternative planning
+and gating schemes on the reference scenario (Table~\ref{tab:baselines}).}
+
+%% ===== Figure_10.png  label=fig:seeds
+\rev{Distribution of the headline results over 20 seeded topologies
+with the reference seed highlighted. Boxes show quartiles and whiskers the
+range.}

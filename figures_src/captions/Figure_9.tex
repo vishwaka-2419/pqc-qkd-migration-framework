@@ -1,0 +1,37 @@
+Comparison of the proposed policy with five alternative planning and gating
+schemes on the reference scenario (Table~\ref{tab:baselines}); each panel shows
+one metric of the same 24-hour run per scheme, with the schemes on the shared
+vertical axis: A, PQC/PQ-T hybrid protection only, no QKD overlay; B, classic
+link-level planning that equips every physically qualified route with QKD
+(every trusted site assumed buildable, trusted-node policy limit 8); C, the
+selective overlay with a static gate that demotes a service once the pool level
+falls below 20\% of the pool capacity $B_{\max}$; D, the selective overlay
+without proactive demotion, i.e.\ a fallback only after a key request has
+failed; E, the selective overlay with the reserve-time gate of
+Eq.~\eqref{eq:reserve} but without re-entry hysteresis ($\kappa = 1$); F, the
+proposed policy (selective overlay, reserve-time forecast with the protected
+reserve $\beta B_{\max}$, re-entry hysteresis $\kappa = 1.5$).
+(a) QKD-backed share of the QKD-preferred rekeys: 95.5\% (B), 96.1\% (C),
+97.3\% (D) and 94.2\% (E, F); n/a for A, which deploys no QKD and therefore
+has no QKD-preferred rekeys.
+(b) Physical QKD hops with the number of trusted sites in brackets: 28 hops
+over 19 sites for B against 13 hops over 7 sites for every selective scheme
+C--F, and 0 (0) for A.
+(c) Minimum pool level during the run as a fraction of $B_{\max}$: 0.53 for B,
+E and F; 0.20 for C, whose static gate lets the pool fall to its threshold;
+0 for D, whose pool is drained; n/a for A, which has no KME pool.
+(d) Hard KME starvation events, i.e.\ key requests that the paired-KME pool
+could not serve, with the number of reactive fallback rekeys in brackets:
+269 (26\,076) for D and 0 (0) for every other scheme.
+(e) Five-year assurance premium, the NPV of the QKD overlay above the PQC
+migration baseline: 6.26\,MEUR for B, 2.84\,MEUR for C--F and 0 for A.
+The dark bar is the proposed scheme F, the light bars are the comparison
+schemes A--E; every value is printed at the end of its bar, zero values next
+to the axis, and a metric that is undefined for scheme A is marked n/a
+without a bar. E and F coincide on all five metrics because the reserve-time
+signal of the demoted DCI route (dci-0) stays just below the gold demotion
+margin $T_{\min} = 2$~h until the refill resumes, and exceeds the re-entry
+threshold $\kappa T_{\min} = 3$~h at the next sample (the full-pool value of
+3.96~h), so the hysteresis changes no decision in this run. All values are
+planning-model outputs of the seeded synthetic scenario (topology seed 7,
+simulation seed 11); no carrier data are used.

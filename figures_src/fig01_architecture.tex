@@ -1,0 +1,149 @@
+% Figure 1 -- reference architecture of the crypto-agile migration framework.
+% Standalone TikZ; the canvas is exactly 160 mm wide (manuscript text width).
+% Compiled by build_figures.py (pdflatex -> pdftoppm 600 dpi -> TIFF).
+%
+% Style: one hue (dark-blue outlines h800, white fills, policy engine tinted
+% h50), Helvetica clone (TeX Gyre Heros), 9 pt body / 8 pt detail text,
+% Stealth arrows. No title, no panel letters (single diagram); everything else
+% is explained in the caption (captions/Figure_1.tex).
+\documentclass[tikz,border=0pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{tgheros}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{amsmath}
+% Math in the text face as well (Helvetica italic for R, B; upright min/max);
+% falls back to Computer Modern math if mathastext is not installed.
+\IfFileExists{mathastext.sty}{\usepackage[italic,defaultmathsizes]{mathastext}}{}
+\usetikzlibrary{arrows.meta,positioning,calc,fit,shapes.misc,backgrounds}
+\definecolor{h900}{HTML}{0b2240}\definecolor{h800}{HTML}{14365f}\definecolor{h500}{HTML}{3576bd}\definecolor{h300}{HTML}{86afdb}\definecolor{h100}{HTML}{d6e3f3}\definecolor{h50}{HTML}{edf3fa}\definecolor{ink}{HTML}{1a1a1a}\definecolor{ink2}{HTML}{4a4a4a}\definecolor{ink3}{HTML}{7c7c7c}
+
+% typography: 9 pt body, 8 pt detail (nothing smaller)
+\frenchspacing
+\newcommand{\fA}{\fontsize{9}{11}\selectfont}
+\newcommand{\fB}{\fontsize{8}{9.6}\selectfont}
+\newcommand{\lab}[1]{{\fA #1}}
+
+% ---------------------------------------------------------------- geometry (mm)
+\def\W{160}        % canvas width = printed width
+\def\H{158}        % canvas height
+\def\xL{5}         % left edge of the tier containers
+\def\xR{129}       % right edge of the tier containers (inner grid 7.5 .. 126.5)
+\def\xC{85}        % vertical line of the main arrows (in the gaps between boxes)
+\def\xBus{133.5}   % telemetry return bus
+\def\xLab{136.2}   % telemetry label (left edge)
+% tier 1: service inventory and context
+\pgfmathsetmacro\yOneT{\H-7.2}      \pgfmathsetmacro\yOneB{\yOneT-15.5}
+% tier 2: crypto-agile policy engine (two rows of boxes)
+\pgfmathsetmacro\yTwoT{\yOneB-7}    \pgfmathsetmacro\yRowA{\yTwoT-7.2}
+\pgfmathsetmacro\yRowB{\yRowA-13.5-4} \pgfmathsetmacro\yTwoB{\yRowB-10-2}
+% tier 3: key sources
+\pgfmathsetmacro\yThreeT{\yTwoB-7}  \pgfmathsetmacro\yThreeBox{\yThreeT-7.2}
+\pgfmathsetmacro\yThreeB{\yThreeBox-13.5-2.2}
+% tier 4: protocol adapters / binding profiles
+\pgfmathsetmacro\yFourT{\yThreeB-7} \pgfmathsetmacro\yFourBox{\yFourT-7.2}
+\pgfmathsetmacro\yFourB{\yFourBox-13.5-2.2}
+% scope boundary (bottom edge) and tier 5: encrypted carrier services
+\pgfmathsetmacro\yScope{\yFourB-7}
+\pgfmathsetmacro\yFiveT{\yFourB-13}  \pgfmathsetmacro\yFiveBox{\yFiveT-7.2}
+\pgfmathsetmacro\yFiveB{\yFiveBox-8-2.2}
+% vertical centres used by the arrows
+\pgfmathsetmacro\yRowAc{\yRowA-6.75}
+\pgfmathsetmacro\yThreeC{(\yThreeT+\yThreeB)/2}
+\pgfmathsetmacro\yFourC{(\yFourT+\yFourB)/2}
+\pgfmathsetmacro\yBusMid{(\yRowAc+\yFourC)/2}
+
+\begin{document}
+\begin{tikzpicture}[x=1mm,y=1mm,
+  tier/.style={draw=h800,line width=0.6pt,fill=white,rounded corners=1.6mm},
+  engine/.style={tier,fill=h50},
+  box/.style={draw=h800,line width=0.5pt,fill=white,text=ink,font=\fB,
+              align=center,inner xsep=1.4mm,inner ysep=1.15mm,
+              minimum height=13.5mm,anchor=north west},
+  svc/.style={minimum height=8mm,text height=1.6ex,text depth=0.35ex},
+  tname/.style={font=\fA\bfseries,text=ink,inner sep=0,anchor=north west},
+  note/.style={font=\fB,text=ink2,inner sep=0},
+  arr/.style={-{Stealth[length=1.9mm,width=1.4mm]},draw=h800,line width=0.6pt},
+  tele/.style={arr,dash pattern=on 2.2pt off 1.3pt},
+  scope/.style={draw=ink3,line width=0.5pt,dash pattern=on 1.6pt off 1.2pt,
+                rounded corners=2mm}]
+\useasboundingbox (0,0) rectangle (\W,\H);
+
+% ---------------------------------------------------------- scope boundary
+\draw[scope] (1,\yScope) rectangle (\W-1,\H-1);
+% (the boundary is explained in the caption; no label, so that nothing sits in a title position)
+
+% ------------------------------------------- tier 1: service inventory
+\draw[tier] (\xL,\yOneB) rectangle (\xR,\yOneT);
+\node[tname] at (7.5,\yOneT-2) {Service inventory and context};
+\node[note,anchor=north west,text width=119mm,align=left] at (7.5,\yOneT-7.2)
+  {per-service inputs: secrecy lifetime, migration lead time, planning horizon
+   (Mosca margin), SLA class, capability set, HNDL exposure, fail-closed flag};
+
+% ------------------------------------------- tier 2: policy engine
+\draw[engine] (\xL,\yTwoB) rectangle (\xR,\yTwoT);
+\node[tname] at (7.5,\yTwoT-2) {Crypto-agile policy engine};
+% row A: decision chain
+\node[box,text width=28.2mm] (mosca) at (7.5,\yRowA)
+  {\lab{Mosca prioritisation}\\(margin: lifetime +\\lead time $-$ horizon)};
+\node[box,text width=45.2mm] (adm) at (42,\yRowA)
+  {\lab{admissible-mode selection}\\Traditional $\rightarrow$ PQC $\rightarrow$ PQ/T hybrid\\$\rightarrow$ QKD-assisted $\rightarrow$ PQ/T + QKD};
+\node[box,text width=30.2mm] (res) at (93.5,\yRowA)
+  {\lab{reserve-time forecast}\\[0.3ex]\lab{and re-entry hysteresis}};
+% row B
+\node[box,text width=79.7mm,minimum height=10mm] (ovl) at (7.5,\yRowB)
+  {\lab{selective overlay planning}\\route qualification (hop limit, trusted-node limit, $R_{\min}$)};
+\node[box,text width=30.2mm,minimum height=10mm] (fc) at (93.5,\yRowB)
+  {\lab{fail-closed}\\[0.3ex]\lab{downgrade rules}};
+\draw[arr] (mosca.east) -- (adm.west);
+\draw[arr] (adm.east) -- (res.west);
+\draw[arr] (res.south) -- (fc.north);
+
+% ------------------------------------------- tier 3: key sources
+\draw[tier] (\xL,\yThreeB) rectangle (\xR,\yThreeT);
+\node[tname] at (7.5,\yThreeT-2) {Key sources};
+\node[box,text width=26.2mm] (qkd) at (7.5,\yThreeBox)
+  {\lab{QKD links}\\(direct spans,\\trusted-node routes)};
+\node[box,text width=34.2mm] (kme) at (45.5,\yThreeBox)
+  {\lab{paired KME pool}\\(key IDs, single use,\\protected reserve)};
+\node[box,text width=37.7mm] (pqt) at (86,\yThreeBox)
+  {\lab{PQ/T hybrid}\\[0.3ex]\lab{key establishment}\\(ML-KEM + ECDH)};
+\draw[arr] (qkd.east) -- (kme.west);
+\node[note,anchor=south] at ($(qkd.east)!0.5!(kme.west)+(-0.6,1.6)$) {refill};
+
+% ------------------------------------------- tier 4: protocol adapters
+\draw[tier] (\xL,\yFourB) rectangle (\xR,\yFourT);
+\node[tname] at (7.5,\yFourT-2) {Protocol adapters / binding profiles};
+\node[box,text width=38.2mm] (ike) at (7.5,\yFourBox)
+  {\lab{IKEv2}\\(RFC 9370 additional key\\exchanges, RFC 9867 PPK)};
+\node[box,text width=42.2mm] (mac) at (51,\yFourBox)
+  {\lab{MACsec/MKA}\\(abstraction)};
+\node[box,text width=25.2mm] (otn) at (98.5,\yFourBox)
+  {\lab{OTN encryptor}\\(abstraction)};
+
+% ------------------------------------------- tier 5: carrier services
+\draw[tier] (\xL,\yFiveB) rectangle (\xR,\yFiveT);
+\node[tname] at (7.5,\yFiveT-2) {Encrypted carrier services};
+\node[box,svc,text width=38.2mm] (ips) at (7.5,\yFiveBox) {\lab{IPsec tunnels}};
+\node[box,svc,text width=42.2mm] (eth) at (51,\yFiveBox) {\lab{Ethernet secure associations}};
+\node[box,svc,text width=25.2mm] (och) at (98.5,\yFiveBox) {\lab{optical channels}};
+
+% ------------------------------------------- downward flow
+\draw[arr] (\xC,\yOneB) -- (\xC,\yTwoT);
+\node[note,anchor=west] at (\xC+2,{(\yOneB+\yTwoT)/2}) {service context};
+\draw[arr] (\xC,\yTwoB) -- (\xC,\yThreeT);
+\node[note,anchor=west] at (\xC+2,{(\yTwoB+\yThreeT)/2}) {mode decision, key requests};
+\draw[arr] (22,\yRowB-10) -- (22,\yThreeT);
+\node[note,anchor=west] at (24,{(\yTwoB+\yThreeT)/2}) {QKD overlay links};
+\draw[arr] (\xC,\yThreeB) -- (\xC,\yFourT);
+\node[note,anchor=west] at (\xC+2,{(\yThreeB+\yFourT)/2}) {keys, key IDs};
+\foreach \x in {28,73.5,112.5} {\draw[arr] (\x,\yFourB) -- (\x,\yFiveT);}
+\node[note,anchor=west] at (75.5,\yFourB-3.3) {rekey};
+
+% ------------------------------------------- telemetry return path
+\draw[tele] (\xR,\yFourC) -- (\xBus,\yFourC) -- (\xBus,\yRowAc) -- (\xR,\yRowAc);
+\draw[h800,line width=0.6pt,dash pattern=on 2.2pt off 1.3pt] (\xR,\yThreeC) -- (\xBus,\yThreeC);
+\fill[h800] (\xBus,\yThreeC) circle (0.5mm);
+\node[note,anchor=west,align=left] at (\xLab,\yBusMid)
+  {telemetry:\\pool level,\\reserve time,\\outages,\\rekey outcomes};
+\end{tikzpicture}
+\end{document}
