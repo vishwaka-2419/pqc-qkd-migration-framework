@@ -1,0 +1,3 @@
+policy,service,sessions,attempted_rekeys,successful_rekeys,failed_rekeys,traditional_only_rekeys,downgraded_hndl_rekeys
+fail_closed,dci-0:ipsec,60,720,0,720,0,0
+fail_open,dci-0:ipsec,60,720,720,0,720,720

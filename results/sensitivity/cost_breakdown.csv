@@ -1,0 +1,13 @@
+scope,kind,item,npv_kEUR
+shared,capex,Inventory and common policy platform,280.0
+shared,capex,PQC integration (all services),270.0
+shared,capex,"Migration programme, phases 1-2",120.0
+shared,opex,Common platform operations,208.3
+shared,opex,PQC operations (all services),222.2
+incremental,capex,QKD endpoint pairs (per physical hop),1250.0
+incremental,capex,Trusted-site construction,538.5
+incremental,capex,QKD service integration (per logical link),173.1
+incremental,capex,Optical engineering (per logical link),144.2
+incremental,capex,"Migration programme, phase 3",57.7
+incremental,opex,QKD operations (per physical hop),471.9
+incremental,opex,Trusted-site operations,203.3
