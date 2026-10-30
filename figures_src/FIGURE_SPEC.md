@@ -211,7 +211,7 @@ vertical line; legend in free space (upper left is free? check) .
 and 10 years: three lines with `SHADES[0..2]`, `LINESTYLES[0..2]`,
 `MARKERS[0..2]`; legend in free space (lower left).
 
-### Figure 7 — `fig07_oat.py` (width 1.0, ~7.6 in) — 6 rows × 3 columns, letters (a)–(f) one per row
+### Figure 7 — `fig07_oat.py` (width 1.0, 6.8 in) — 6 rows × 3 columns, letters (a)–(f) one per row
 Data: `sensitivity('oat_sweeps')` columns `parameter`, `value`,
 `physical_qkd_hops`, `qkd_backed_rekey_pct`, `min_pool_fraction`.
 Rows = parameters in this order with these x-axis labels: `max_hop_km`

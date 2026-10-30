@@ -12,7 +12,8 @@ seeds by the code in this repository.
 | Release | Purpose | Zenodo |
 |---------|---------|--------|
 | v1.0.0  | originally submitted manuscript | 10.5281/zenodo.21427006 |
-| v1.1.0  | revised manuscript (sensitivity, comparison schemes, robustness) | concept DOI 10.5281/zenodo.21427005 |
+| v1.1.0  | intermediate release (sensitivity, comparison schemes, robustness, redrawn figures); superseded | concept DOI 10.5281/zenodo.21427005 |
+| v1.1.1  | revised manuscript (R1): corrected fallback counter, matched-constraint schemes, service-specific dimensioning margins, bundled fonts | version DOI minted on release; concept DOI 10.5281/zenodo.21427005 |
 
 ## Implemented scope
 
@@ -50,7 +51,7 @@ seeds by the code in this repository.
 ```bash
 python3 -m pip install -r requirements.txt
 python3 run_experiments.py      # reference results (results/*.csv) + Figures 1-6 + graphical abstract
-python3 run_sensitivity.py      # 142 scenario runs -> results/sensitivity/*.csv (~3 min)
+python3 run_sensitivity.py      # 144 scenario runs -> results/sensitivity/*.csv (~3 min)
 python3 make_figures.py         # Figures 7-10 from the sensitivity CSVs
 python3 build_figures.py        # (re)build any figure: build_figures.py 4 7 GA
 PYTHONPATH=. python3 -m pytest -q

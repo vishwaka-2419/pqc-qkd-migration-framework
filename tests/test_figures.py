@@ -25,3 +25,17 @@ def test_palette_is_single_hue():
         r, g, b = (int(hexcode[i:i + 2], 16) / 255 for i in (1, 3, 5))
         hues.add(round(colorsys.rgb_to_hls(r, g, b)[0], 2))
     assert max(hues) - min(hues) < 0.03
+
+
+def test_bundled_fonts_are_registered():
+    """The bundled TeX Gyre Heros faces are registered, so text metrics (and
+    therefore the layout lint) do not depend on the fonts installed locally."""
+    from matplotlib import font_manager
+    ps.apply_style()
+    registered = {entry.fname for entry in font_manager.fontManager.ttflist}
+    bundled = sorted(str(f) for f in ps.FONT_DIR.glob("*.otf"))
+    assert len(bundled) == 4
+    assert all(f in registered for f in bundled)
+    path = font_manager.findfont(font_manager.FontProperties(family=ps.FONT),
+                                 fallback_to_default=False)
+    assert font_manager.get_font(path).family_name == ps.FONT

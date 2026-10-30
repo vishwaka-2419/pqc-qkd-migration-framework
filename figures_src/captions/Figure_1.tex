@@ -1,42 +1,16 @@
 Reference architecture of the crypto-agile migration framework as implemented
-by the simulator, drawn as four tiers inside the implementation boundary and
-the encrypted carrier services that they protect below it. Top tier: the
-service inventory supplies the per-service context, i.e.\ secrecy lifetime,
-migration lead time and planning horizon, from which the Mosca margin
-(lifetime plus lead time minus horizon) and the HNDL exposure (a positive
-margin) are derived, as well as SLA class, capability set and fail-closed
-flag, so that every decision is made per service rather than per physical
-link. Second tier (tinted): the crypto-agile policy engine prioritises
-services by their Mosca margin (a service is HNDL-exposed when the margin is
-positive), selects an admissible mode along the ladder Traditional
+by the simulator: four tiers inside the implementation boundary (grey dashed
+rounded rectangle) and, below it, the encrypted carrier services that they
+protect. From top to bottom: the service inventory, which supplies the
+per-service context; the crypto-agile policy engine (tinted) with its
+Mosca-margin prioritisation, mode selection along the ladder Traditional
 $\rightarrow$ PQC $\rightarrow$ PQ/T hybrid $\rightarrow$ QKD-assisted
-$\rightarrow$ PQ/T\,+\,QKD, forecasts the QKD reserve time and applies
-re-entry hysteresis ($\kappa = 1.5$), and enforces the fail-closed downgrade
-rules (an HNDL-exposed fail-closed service never falls back to Traditional
-only); its selective overlay planner qualifies candidate QKD routes against
-the designed hop limit, the trusted-node policy limit and the planning floor
-$R_{\min}$ (reference values 80~km, 4 trusted nodes and 100~bit/s) and
-selects the QKD overlay links. Third tier: the key sources are PQ/T hybrid
-key establishment (ML-KEM\,+\,ECDH) and the ETSI-014-inspired paired-KME
-pool (key identifiers, matching peer retrieval, single-use semantics,
-explicit errors), which the QKD links (direct spans or trusted-node routes)
-refill at the planning-envelope secret-key rate; the reserve-time forecast
-treats the protected reserve, a fraction $\beta = 0.05$ of the pool capacity
-$B_{\max}$, as unusable, and the paired-KME behaviour is isolated from the
-protocol-specific adapters of the fourth tier. Fourth tier: the protocol
-adapters and binding profiles, i.e.\ IKEv2 with RFC~9370 additional key
-exchanges and RFC~9867 PPK mixing, and generic MACsec/MKA and OTN-encryptor
-abstractions that are not claims of standardised PQC/QKD bindings; each
-adapter rekeys the carrier service drawn below it (IPsec tunnels, Ethernet
-secure associations, optical channels). Solid arrows carry planning and
-control information and key material (service context; QKD overlay links;
-mode decision and key requests; refill; keys and key IDs; rekey), the arrows
-inside the policy engine give the order of the decision chain, and the
-dashed path on the right returns telemetry (pool level, predicted reserve
-time, outages, rekey outcomes) from the adapters and, joining at the dot,
-from the key sources to the reserve-time forecast. The grey dashed rounded
-rectangle marks the scope of the reference implementation: everything inside
-it is exercised by the seeded synthetic scenario (topology seed 7, simulation
-seed 11; 35 links, 60 services), the carrier services below it are
-represented only by the analytical rekey outcomes of their adapters, and no
-carrier data are used anywhere in the evaluation.
+$\rightarrow$ PQ/T\,+\,QKD, reserve-time forecast with re-entry hysteresis,
+fail-closed downgrade rules and selective overlay planner; the key sources
+(PQ/T hybrid key establishment and the ETSI-014-inspired paired-KME pool
+refilled by the QKD links); and the protocol adapters (IKEv2, MACsec/MKA,
+OTN). Solid arrows carry planning and control information and key material;
+the dashed path returns telemetry to the reserve-time forecast.
+Section~\ref{sec:architecture} describes the tiers. Everything inside the
+boundary is exercised by the seeded synthetic scenario (35 links,
+60 services); no carrier data are used.

@@ -2,6 +2,8 @@ sweep,parameter,value,qkd_overlay_links,physical_qkd_hops,trusted_sites,qkd_pref
 baseline,A_pqc_only_no_qkd,A_pqc_only_no_qkd,0,0,0,0,0,0,0,0.0,0,0,0,0,1.0,0,0,0,1.293,8.763,1100.6,1100.6,0.0,26
 baseline,B_qkd_all_feasible_links,B_qkd_all_feasible_links,9,28,19,18,437760,418220,19540,95.536,188,0,6,0,0.5276,0,0,0,1.666,9.178,1100.6,7356.2,6255.6,26
 baseline,C_selective_static_threshold,C_selective_static_threshold,6,13,7,12,334080,321152,12928,96.13,188,0,6,0,0.197,0,0,0,1.668,8.763,1100.6,3939.2,2838.6,26
-baseline,D_selective_reactive_only,D_selective_reactive_only,6,13,7,12,334080,325092,8988,97.31,0,26076,0,269,0.0,0,0,0,1.669,8.763,1100.6,3939.2,2838.6,26
+baseline,D_selective_reactive_only,D_selective_reactive_only,6,13,7,12,334080,325092,8988,97.31,0,8988,0,269,0.0,0,0,0,1.669,8.763,1100.6,3939.2,2838.6,26
 baseline,E_selective_no_hysteresis,E_selective_no_hysteresis,6,13,7,12,334080,314540,19540,94.151,188,0,6,0,0.5276,0,0,0,1.666,8.763,1100.6,3939.2,2838.6,26
 baseline,F_proposed_selective_reserve_time,F_proposed_selective_reserve_time,6,13,7,12,334080,314540,19540,94.151,188,0,6,0,0.5276,0,0,0,1.666,8.763,1100.6,3939.2,2838.6,26
+baseline,B_prime_selective_rule_relaxed_constraints,B_prime_selective_rule_relaxed_constraints,9,28,19,18,437760,418220,19540,95.536,188,0,6,0,0.5276,0,0,0,1.666,9.178,1100.6,7356.2,6255.6,26
+baseline,F_prime_all_feasible_rule_reference_constraints,F_prime_all_feasible_rule_reference_constraints,6,13,7,12,334080,314540,19540,94.151,188,0,6,0,0.5276,0,0,0,1.666,8.763,1100.6,3939.2,2838.6,26

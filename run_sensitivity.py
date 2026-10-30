@@ -1,8 +1,9 @@
 """Sensitivity analysis, comparison baselines, and seed-robustness study.
 
-Everything here was added for the revised manuscript (release v1.1.0). It
-writes CSV files to ``results/sensitivity/``; ``make_figures.py`` turns them
-into Figures 7-10. Run time is a few minutes on a laptop; the sweeps are
+Everything here was added for the revised manuscript (release v1.1.0; the
+matched-constraint schemes B' and F' and the corrected fallback counter in
+v1.1.1). It writes CSV files to ``results/sensitivity/``; ``make_figures.py``
+turns them into Figures 7-10. Run time is a few minutes on a laptop; the sweeps are
 embarrassingly parallel and use a process pool.
 """
 from __future__ import annotations
@@ -54,6 +55,15 @@ BASELINES = {
     "D_selective_reactive_only": DEFAULT.with_(gating="reactive_only"),
     "E_selective_no_hysteresis": DEFAULT.with_(reentry_multiplier=1.0),
     "F_proposed_selective_reserve_time": DEFAULT,
+    # Matched-constraint decomposition of the B-F difference (Section 3.7 and
+    # S7): scheme B changes the overlay rule AND the planning constraints
+    # (every trusted site buildable, trusted-node limit 8).  B' applies the
+    # selective rule under B's relaxed constraints; F' applies the
+    # all-feasible rule under the reference constraints of F.
+    "B_prime_selective_rule_relaxed_constraints": DEFAULT.with_(
+        assume_sites_buildable=True, trusted_node_limit=8),
+    "F_prime_all_feasible_rule_reference_constraints": DEFAULT.with_(
+        overlay="all_feasible"),
 }
 
 

@@ -1,4 +1,4 @@
-"""Shared figure style for every generated figure (release v1.1.0, R1).
+"""Shared figure style for every generated figure (releases v1.1.0/v1.1.1, R1).
 
 Design rules (IET / Wiley figure guidance):
 
@@ -11,7 +11,10 @@ Design rules (IET / Wiley figure guidance):
   the manuscript, 160 mm) so that the point sizes below are the printed
   point sizes: axis labels 10 pt, tick labels and legends 9 pt, in-figure
   annotations 8.5 pt, panel letters 11 pt bold;
-* Helvetica-compatible sans-serif (TeX Gyre Heros) with Type 42 embedding.
+* Helvetica-compatible sans-serif (TeX Gyre Heros) with Type 42 embedding;
+  the four faces are bundled in ``figures_src/fonts/`` (GUST Font License)
+  and registered by ``apply_style`` so that every environment measures and
+  renders text identically (the layout lint depends on the text metrics).
 """
 from __future__ import annotations
 from pathlib import Path
@@ -63,6 +66,7 @@ PROTO_LABELS = {"ikev2": "IKEv2/IPsec", "macsec": "MACsec", "otn": "OTN"}
 FULL = 160 / 25.4      # printed text width of the manuscript, inches (6.30 in)
 FIG_DPI = 600
 FONT = "TeX Gyre Heros"
+FONT_DIR = Path(__file__).resolve().parents[1] / "figures_src" / "fonts"
 SIZE_LABEL = 10.0
 SIZE_TICK = 9.0
 SIZE_LEGEND = 9.0
@@ -70,7 +74,17 @@ SIZE_ANNOT = 8.5
 SIZE_PANEL = 11.0
 
 
+def register_fonts() -> list[str]:
+    """Register the bundled TeX Gyre Heros faces with Matplotlib (idempotent)."""
+    from matplotlib import font_manager
+    paths = sorted(str(p) for p in FONT_DIR.glob("*.otf"))
+    for p in paths:
+        font_manager.fontManager.addfont(p)
+    return paths
+
+
 def apply_style() -> None:
+    register_fonts()
     plt.rcParams.update({
         "font.family": "sans-serif",
         "font.sans-serif": [FONT, "Nimbus Sans", "Liberation Sans", "DejaVu Sans"],

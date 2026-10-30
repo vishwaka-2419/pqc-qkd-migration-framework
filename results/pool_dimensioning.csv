@@ -1,7 +1,7 @@
-link,km,physical_hops,planning_skr_bps,aggregate_demand_bps,pool_capacity_Mbit,drain_time_from_full_h,max_reserve_time_h,reentry_threshold_h,max_admissible_reentry_multiplier,condition_satisfied
-core-0,330.7,5,47680.0,102.4,5.12,13.89,13.19,3.0,6.6,True
-core-3,300.1,4,31656.0,102.4,5.12,13.89,13.19,3.0,6.6,True
-metro0-2,42.6,1,141027.0,59.7,5.12,23.81,22.62,3.0,11.31,True
-metro2-2,53.2,1,86530.0,59.7,5.12,23.81,22.62,3.0,11.31,True
-dci-0,39.9,1,159897.0,341.3,5.12,4.17,3.96,3.0,1.98,True
-dci-1,37.5,1,178457.0,341.3,5.12,4.17,3.96,3.0,1.98,True
+link,km,physical_hops,planning_skr_bps,aggregate_demand_bps,pool_capacity_Mbit,drain_time_from_full_h,max_reserve_time_h,sla_classes,t_min_h,reentry_threshold_h,max_admissible_reentry_multiplier,condition_satisfied
+core-0,330.7,5,47680.0,102.4,5.12,13.89,13.19,gold,2.0,3.0,6.6,True
+core-3,300.1,4,31656.0,102.4,5.12,13.89,13.19,gold,2.0,3.0,6.6,True
+metro0-2,42.6,1,141027.0,59.7,5.12,23.81,22.62,silver,1.0,1.5,22.62,True
+metro2-2,53.2,1,86530.0,59.7,5.12,23.81,22.62,silver,1.0,1.5,22.62,True
+dci-0,39.9,1,159897.0,341.3,5.12,4.17,3.96,gold,2.0,3.0,1.98,True
+dci-1,37.5,1,178457.0,341.3,5.12,4.17,3.96,gold,2.0,3.0,1.98,True

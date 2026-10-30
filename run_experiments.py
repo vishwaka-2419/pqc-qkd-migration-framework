@@ -14,7 +14,7 @@ from hybridsim.experiments import (run_scenario, phase_decisions,
                                    NEGATIVE_CONTROL_SEED)
 from hybridsim.kms import PairedKMEPool
 from hybridsim.params import DEFAULT
-from hybridsim.policy import MIN_RESERVE_S
+from hybridsim.policy import MIN_RESERVE_S, required_reserve_s
 from hybridsim.qkd import plan_qkd_link, QKDRouteResources
 from hybridsim.simulate import simulate, link_qkd_demand_bps
 from hybridsim.topology import build, iter_services, Capabilities
@@ -51,13 +51,24 @@ def write_inventory(links):
 
 
 def write_dimensioning(selected):
-    """Per-link check of the reserve-policy dimensioning condition."""
+    """Per-link check of the reserve-policy dimensioning condition.
+
+    The binding SLA margin ``T_min`` of a link is the largest margin among its
+    QKD-capable services (gold 2 h on the core and DCI links, silver 1 h on
+    the metro links), so the re-entry threshold ``kappa * T_min`` and the
+    largest admissible ``kappa`` are service-specific (v1.1.1; v1.1.0 applied
+    the gold margin to every link).
+    """
     rows = []
     for link in selected:
         plan = plan_qkd_link(link.distance_km, link.qkd_resources)
         pool = PairedKMEPool(link.link_id, plan.skr_bps, "A", "B")
         demand = link_qkd_demand_bps(link)
-        gold = MIN_RESERVE_S["gold"]
+        eligible = [s for s in link.services if s.capabilities.qkd] or list(link.services)
+        sla_classes = sorted({s.sla_class for s in eligible},
+                             key=lambda c: -MIN_RESERVE_S[c])
+        t_min = max(required_reserve_s(s, DEFAULT) for s in eligible)
+        reentry = DEFAULT.reentry_multiplier * t_min
         tmax = pool.max_reserve_time_s(demand, DEFAULT.protected_fraction)
         rows.append({
             "link": link.link_id, "km": round(link.distance_km, 1),
@@ -67,9 +78,11 @@ def write_dimensioning(selected):
             "pool_capacity_Mbit": pool.capacity_bits / 1e6,
             "drain_time_from_full_h": round(pool.capacity_bits / demand / 3600, 2),
             "max_reserve_time_h": round(tmax / 3600, 2),
-            "reentry_threshold_h": round(DEFAULT.reentry_multiplier * gold / 3600, 2),
-            "max_admissible_reentry_multiplier": round(tmax / gold, 2),
-            "condition_satisfied": tmax >= DEFAULT.reentry_multiplier * gold,
+            "sla_classes": "/".join(sla_classes),
+            "t_min_h": round(t_min / 3600, 2),
+            "reentry_threshold_h": round(reentry / 3600, 2),
+            "max_admissible_reentry_multiplier": round(tmax / t_min, 2),
+            "condition_satisfied": tmax >= reentry,
         })
     _csv(RES / "pool_dimensioning.csv", rows)
     return rows

@@ -66,7 +66,7 @@ COLS = [
 # --------------------------------------------------------------------------
 # geometry (inches unless stated otherwise)
 # --------------------------------------------------------------------------
-HEIGHT_IN = 7.95
+HEIGHT_IN = 6.8
 MARGIN_V_IN = 0.03        # above the letter "(a)" and below the last x label
 LEFT_IN = 0.02
 RIGHT_IN = 0.05

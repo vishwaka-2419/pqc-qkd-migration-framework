@@ -1,5 +1,48 @@
 # Changelog
 
+## v1.1.1 (2026-10-30) — corrections for revision 1 of manuscript QTC-2026-07-0055
+
+Supersedes v1.1.0 as the release cited by the revised manuscript. The
+reference-scenario results are unchanged; the corrections affect the
+comparison study, the dimensioning table and the portability of the figure
+build.
+
+### Fixed
+- `hybridsim/simulate.py`: a rekey carried by a fallback mode is counted once
+  in `ServiceRun.reactive_fallbacks`. v1.1.0 also incremented the counter when
+  the preceding QKD-mode key request failed with a `KMEError`, so scheme D of
+  the comparison study reported 26,076 "reactive fallback rekeys" where 8,988
+  rekeys (334,080 QKD-preferred minus 325,092 QKD-backed) were carried by a
+  fallback mode. `LinkRun.kme_errors` (269 for scheme D) is unchanged and
+  counts unsuccessful KME requests at attempt level.
+  Regression tests: `tests/test_fallback_counting.py`.
+- `run_experiments.py` / `results/pool_dimensioning.csv`: the dimensioning
+  check applies the SLA margin of each link's QKD-capable services (gold 2 h
+  on the core and DCI links, silver 1 h on the metro links) instead of the
+  gold margin everywhere; the metro links now show a re-entry threshold of
+  1.5 h and a largest admissible hysteresis factor of 22.6 (columns
+  `sla_classes`, `t_min_h` added).
+- `figures_src/fig06_cost.py`: hatches are drawn through the edge colour
+  instead of the `hatchcolor` property, which needs Matplotlib >= 3.11.
+
+### Added
+- `run_sensitivity.py`: two matched-constraint comparison schemes,
+  `B_prime_selective_rule_relaxed_constraints` (selective rule under the
+  relaxed constraints of scheme B) and
+  `F_prime_all_feasible_rule_reference_constraints` (all-feasible rule under
+  the reference constraints), 144 scenario runs in total. B' reproduces B and
+  F' reproduces F, which attributes the B-F difference to the planning
+  constraints rather than to the overlay rule.
+- `figures_src/fonts/`: the four TeX Gyre Heros faces (GUST Font License) are
+  bundled and registered by `plotstyle.apply_style()`, so the figures and the
+  layout lint use the same font metrics in every environment.
+- `requirements.txt`: version ranges; the suite is run on Matplotlib 3.10.8
+  and 3.11.2 before release (29 tests).
+
+### Changed
+- `figures_src/fig07_oat.py`: figure height 6.8 in (was 7.95 in) so that the
+  figure and its caption fit one page of the manuscript.
+
 ## v1.1.0 (2026-10-29) — revision 1 of manuscript QTC-2026-07-0055
 
 Added for the revised manuscript. The defaults reproduce every v1.0.0 number

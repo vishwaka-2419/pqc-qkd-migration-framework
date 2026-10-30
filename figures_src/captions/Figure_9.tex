@@ -20,12 +20,14 @@ C--F, and 0 (0) for A.
 (c) Minimum pool level during the run as a fraction of $B_{\max}$: 0.53 for B,
 E and F; 0.20 for C, whose static gate lets the pool fall to its threshold;
 0 for D, whose pool is drained; n/a for A, which has no KME pool.
-(d) Hard KME starvation events, i.e.\ key requests that the paired-KME pool
-could not serve, with the number of reactive fallback rekeys in brackets:
-269 (26\,076) for D and 0 (0) for every other scheme.
+(d) Hard KME starvation events, i.e.\ unsuccessful key requests to the
+paired-KME pool, with the number of rekeys carried by a fallback mode after
+the decided QKD mode failed in brackets (each rekey counted once):
+269 (8\,988) for D and 0 (0) for every other scheme.
 (e) Five-year assurance premium, the NPV of the QKD overlay above the PQC
 migration baseline: 6.26\,MEUR for B, 2.84\,MEUR for C--F and 0 for A.
-The dark bar is the proposed scheme F, the light bars are the comparison
+The matched-constraint controls B$'$ and F$'$ of Table~\ref{tab:baselines}
+coincide with B and F and are not drawn. The dark bar is the proposed scheme F, the light bars are the comparison
 schemes A--E; every value is printed at the end of its bar, zero values next
 to the axis, and a metric that is undefined for scheme A is marked n/a
 without a bar. E and F coincide on all five metrics because the reserve-time

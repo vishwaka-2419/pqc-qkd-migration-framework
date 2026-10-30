@@ -127,9 +127,11 @@ def _panel_a(ax, d):
     for y, (scope, kind, name, v) in rows:
         face = ps.MUTED if scope == "shared" else ps.EMPHASIS
         hatch = ps.HATCHES[1] if kind == "opex" else ps.HATCHES[0]
-        hatchcolor = ps.HUE[700] if scope == "shared" else ps.HUE[200]
-        ax.barh(y, v, height=bar_h, color=face, hatch=hatch, hatchcolor=hatchcolor,
-                edgecolor=face, linewidth=0, zorder=3)
+        # the hatch is drawn in the edge colour (an invisible 0-pt edge); the
+        # hatchcolor= property would need Matplotlib >= 3.11
+        hatch_colour = ps.HUE[700] if scope == "shared" else ps.HUE[200]
+        ax.barh(y, v, height=bar_h, color=face, hatch=hatch, edgecolor=hatch_colour,
+                linewidth=0, zorder=3)
         ax.text(v + pad, y, fmt(v), ha="left", va="center",
                 fontsize=ps.SIZE_ANNOT, color=ps.INK2, bbox=HALO_SMALL)
     ax.set_yticks([y for y, _ in rows])
@@ -153,7 +155,7 @@ def _panel_a(ax, d):
         Patch(facecolor=ps.EMPHASIS, edgecolor=ps.EMPHASIS, linewidth=0, label="incremental"),
         Patch(facecolor=ps.SURFACE, edgecolor=ps.INK2, linewidth=0.7, label="capex"),
         Patch(facecolor=ps.SURFACE, edgecolor=ps.INK2, linewidth=0.7,
-              hatch=ps.HATCHES[1], hatchcolor=ps.INK2, label="opex"),
+              hatch=ps.HATCHES[1], label="opex"),
     ]
     ax.legend(handles=handles, loc="upper right", bbox_to_anchor=(1.0, 1.0),
               handlelength=1.6, handleheight=0.9, labelspacing=0.45, **LEGEND_FRAME)

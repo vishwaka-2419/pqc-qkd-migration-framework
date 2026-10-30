@@ -1,50 +1,15 @@
 One-at-a-time sensitivity of the selective QKD overlay to the six planning
-parameters. Each row sweeps one parameter with the other five at their
-reference values; the three columns show, for the same 24-hour run, the
-physical QKD footprint (left: physical hops of the qualified overlay), the
-QKD-backed share of the QKD-preferred rekeys (middle) and the minimum pool
-level during the run as a fraction of the pool capacity $B_{\max}$ (right).
-The swept values sit at equal spacing on the horizontal axis (in rows (a),
-(c) and (d) the tick labels alternate between two lines); every marker is one
-run, the dark line only connects the runs of a row, and the open ring marks
-the reference configuration (hop limit 80~km, trusted-node limit~4,
-$R_{\min} = 100$~bit/s, $\beta = 0.05$, $\kappa = 1.5$, margin scale~1:
-13~hops over six links, 94.2\%, 0.53).
-(a)~Designed hop limit: a longer limit qualifies more long-haul routes (three
-overlay links at 50~km, four at 60~km, six at 70--80~km, seven from 90~km)
-while each route needs fewer hops, so the footprint grows from 3 to 17 hops
-(90--100~km) and is 14 hops at 120~km; the QKD-backed share rises with the
-overlay size from 90.0 to 94.7\%, because the rekeys lost to demotion
-during the refill outages of the scenario weigh less in a larger overlay,
-and the minimum pool level stays at 0.53.
-(b)~Trusted-node policy limit: limits 0--2 admit direct spans only (4 hops,
-90.7\%), limit~3 adds the first trusted-node route (8 hops, 93.5\%), the
-reference limit~4 gives 13 hops and a limit of 5 or more the full seven-link
-overlay with 19 hops (94.7\%).
-(c)~Planning floor $R_{\min}$: nothing changes between 10~bit/s and
-30~kbit/s; at 100~kbit/s only three direct spans still clear the floor
-(3 hops, 90.0\%).
-(d)~Protected fraction $\beta$: the footprint is unchanged (13 hops in
-(d)--(f)); a larger protected reserve raises the minimum pool level from 0.48
-($\beta = 0$) to 0.60 ($\beta \ge 0.2$) and lowers the QKD-backed share
-gently, from 94.5 to 93.3\%, until it drops to 79.7\% at $\beta = 0.3$
-(79.1\% at 0.4).
-(e)~Re-entry hysteresis $\kappa$: no effect up to $\kappa = 1.5$; from
-$\kappa = 2$ the share falls to 81.2\% (pool level unchanged at 0.53).
-(f)~Reserve-margin scale: smaller margins demote later and let the pool fall
-to 0.17 (scale 0.25) or 0.29 (0.5) with shares of 96.3 and 95.6\%; a scale
-of 1.5 demotes earlier (minimum level 0.60, share 79.8\%), and from a scale
-of~2 the share is 31.0\%.
-The cliffs in (d)--(f) are the configurations that violate the dimensioning
-condition of Eq.~\eqref{eq:dimensioning}: the longest reserve time a full
-pool can report, $(1-\beta)B_{\max}$ divided by the aggregate key demand of
-the route, must reach the re-entry threshold $\kappa T_{\min}$. For the two
-DCI routes, which carry the largest key demand, it does not from
-$\beta = 0.3$, $\kappa = 2$ or a margin scale of 1.5, so the services demoted
-during the refill outage of route dci-0 cannot return to QKD within the run;
-from a margin scale of~2 the scaled margin $T_{\min}$ itself is out of reach,
-the gold services of both DCI routes are never admitted to a QKD mode, and
-only the rekeys of the core and metro routes remain QKD-backed. A minimum
-pool level of 0.60 means that the pool was never drawn below its initial fill
-level. All values are planning-model outputs of the seeded synthetic scenario
-(topology seed~7, simulation seed~11); no carrier data are used.
+parameters, one row per parameter with the other five at their reference
+values: (a) designed hop limit, (b) trusted-node policy limit, (c) planning
+floor $R_{\min}$, (d) protected fraction $\beta$, (e) re-entry hysteresis
+$\kappa$, (f) SLA-margin scale. The columns show, for the same 24-hour run,
+the physical hops of the qualified overlay (left), the QKD-backed share of
+the QKD-preferred rekeys (middle) and the minimum pool level as a fraction of
+$B_{\max}$ (right). Swept values sit at equal spacing; every marker is one
+run, the line connects the runs of a row, and the open ring marks the
+reference configuration (13 hops, 94.2\%, 0.53).
+Section~\ref{sec:sensitivity} and Table~\ref{tab:sensitivity} give the
+values and explain the cliffs in (d)--(f), which are the configurations that
+violate the dimensioning condition of Eq.~\eqref{eq:dimensioning}.
+Planning-model outputs of the seeded synthetic scenario (topology seed~7,
+simulation seed~11); no carrier data are used.

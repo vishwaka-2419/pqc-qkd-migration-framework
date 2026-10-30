@@ -23,8 +23,8 @@ class ServiceRun:
     successful_rekeys: int = 0
     failed_rekeys: int = 0
     deadline_misses: int = 0
-    proactive_demotions: int = 0
-    reactive_fallbacks: int = 0
+    proactive_demotions: int = 0   # session rekeys moved off QKD by the reserve gate
+    reactive_fallbacks: int = 0    # session rekeys carried by a fallback mode, once per rekey
     mode_transitions: int = 0
     rekeys_by_mode: dict[str, int] = field(default_factory=dict)
     latency_samples_ms: list[float] = field(default_factory=list)
@@ -48,7 +48,7 @@ class LinkRun:
     pool_trace: list[tuple[float, float, float]] = field(default_factory=list)
     outage_seconds: float = 0.0
     min_pool_fraction: float = 1.0
-    kme_errors: int = 0
+    kme_errors: int = 0            # unsuccessful KME key requests (attempt level)
 
 
 @dataclass
@@ -198,7 +198,8 @@ def simulate(links: list[Link], phase: int = 4, horizon_s: int = 86_400,
                     if not lr.pool.deliver_matched_keys(service.sessions):
                         continue
                 except KMEError:
-                    sr.reactive_fallbacks += service.sessions
+                    # one unsuccessful KME request (attempt level); the rekey
+                    # itself is counted once, below, by the mode that carries it
                     lr.kme_errors += 1
                     continue
             selected = mode
@@ -211,6 +212,7 @@ def simulate(links: list[Link], phase: int = 4, horizon_s: int = 86_400,
             sr.failed_rekeys += service.sessions
         else:
             if selected != decision.mode:
+                # carried by a fallback mode after the decided mode failed
                 sr.reactive_fallbacks += service.sessions
             sr.successful_rekeys += service.sessions
             sr.rekeys_by_mode[selected] = sr.rekeys_by_mode.get(selected, 0) + service.sessions
